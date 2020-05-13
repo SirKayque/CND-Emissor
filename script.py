@@ -51,6 +51,7 @@ def menu(): #Funcao para carregar o menu e suas opcoes
         i = len(lst)
         insc = lst[0]
         print("\n>>>As certidões estão sendo emitir, assim que finalizadas iremos notificar")
+        pendencia = []
 
         while i > 0:
             chrome_options = Options()
@@ -76,17 +77,23 @@ def menu(): #Funcao para carregar o menu e suas opcoes
             pdf_url = driver.find_element_by_tag_name('iframe').get_attribute("src")
             print(pdf_url) #Link aonde o PDF esta hospedado
             url = pdf_url
+            
+            if url == "https://www.santoandre.sp.gov.br/PortalServico/Seguranca/frmLogin.aspx":
+                print("A certidão {} está com pendência.".format(insc))
+                pendencia.append(insc)
+                
 
-            ext = '.pdf' #Renomea-se o arquivo para .pdf
-            r = requests.get(url)
-            with open(str(insc)+ext, 'wb') as f:
-             f.write(r.content)
+            if url == "https://www.santoandre.sp.gov.br/PortalServico/Seguranca/frmLogin.aspx":
+                ext = '.pdf' #Renomea-se o arquivo para .pdf
+                r = requests.get(url)
+                with open(str(insc)+ext, 'wb') as f:
+                 f.write(r.content)
              
 #Loop para prosseguir com as emissoes que o usuario solicitou
             print("\nA certidão sobre a inscrição {} foi salva com sucesso !".format(insc))
             print("*****************************************************{}".format("*"*len(insc)))
-            i = i-1
-            insc = lst[0+i]
+        i = i-1
+        insc = lst[0+i]
 
     elif inp == "I":
         cls()
@@ -132,40 +139,89 @@ def menu(): #Funcao para carregar o menu e suas opcoes
         lista = open("lista.txt").read().splitlines()
         print("\nInsira o grupo que você desejea emitir.")
         print("Exemplo, insira 1 para o Grupo 01, ou 15 para o Grupo 15.")
-        num = int(input("\n>>>Grupo: "))
+        num = (input("\n>>>Grupo: ").upper())
 
         if num == "M":
-            lista = lista[1:14]
-        elif num == 1:
-            lista = lista[16:25]
-        elif num == 2:
-            lista = lista[27:36]
-        elif num == 3:
-            lista = lista[38:47]
-        elif num == 4:
-            lista = lista[49:59]
-        elif num == 5:
-            lista = lista[61:76]
-        elif num == 6:
-            lista = lista[78:90]
-        elif num == 7:
-            lista = lista[92:103]
-        elif num == 8:
-            lista = lista[105:113]
-        elif num == 9:
-            lista = lista[115:125]
-        elif num == 10:
-            lista = lista[127:134]
-        elif num == 11:
-            lista = lista[136:147]
-        elif num == 12:
-            lista = lista[149:158]
-        elif num == 13:
-            lista = lista[160:169]
-        elif num == 14:
-            lista = lista[171:179]
-        elif num == 15:
-            lista = lista[181:184]
+            grupo = lista[1:14]
+        elif num == "1":
+            grupo = lista[15:25]
+        elif num == "2":
+            grupo = lista[26:36]
+        elif num == "3":
+            grupo = lista[37:47]
+        elif num == "4":
+            grupo = lista[48:59]
+        elif num == "5":
+            grupo = lista[60:76]
+        elif num == "6":
+            grupo = lista[77:90]
+        elif num == "7":
+            grupo = lista[91:103]
+        elif num == "8":
+            grupo = lista[104:113]
+        elif num == "9":
+            grupo = lista[114:125]
+        elif num == "10":
+            grupo = lista[126:134]
+        elif num == "11":
+            grupo = lista[135:147]
+        elif num == "12":
+            grupo = lista[148:158]
+        elif num == "13":
+            grupo = lista[159:169]
+        elif num == "14":
+            grupo = lista[170:179]
+        elif num == "15":
+            grupo = lista[180:184]
+        i = len(grupo)
+        vargrupo = grupo[0]
 
+        while i >= 0:
+    
+            chrome_options = Options()
+            #chrome_options.add_argument("--headless")
+            driver = webdriver.Chrome(options=chrome_options)
+            driver.get('https://www.santoandre.sp.gov.br/portalservico/Certidoes/PosNegTribMobiliario.aspx')
+
+#Selenium submete a inscricao na box xpath CMC
+            xpathbox = '//*[@id="ContentPlaceHolder1_txtCMC"]'
+            box = driver.find_element_by_xpath(xpathbox)
+            box.send_keys(vargrupo)
+            box.submit()
+
+#Selenium submete um clique para prosseguir com a emissao
+            xpathbtn = '//*[@id="ContentPlaceHolder1_btnVisualizar"]'
+            btn = driver.find_element_by_xpath(xpathbtn)
+            btn.click()
+
+#Requests obtem o link do Selenium e utiliza-o para baixar o arquivo PDF
+            
+            time.sleep(45) #Tempo médio para a aquisição do PDF ser liberada
+
+          
+            pdf_url = driver.find_element_by_tag_name('iframe').get_attribute("src")
+            print(pdf_url) #Link aonde o PDF esta hospedado
+            url = pdf_url
+
+            ext = '.pdf' #Renomea-se o arquivo para .pdf
+            r = requests.get(url)
+            with open(str(vargrupo)+ext, 'wb') as f:
+             f.write(r.content)
+
+#Loop para prosseguir com as emissoes que o usuario solicitou
+            print("\nA certidão sobre a inscrição {} foi salva com sucesso !".format(vargrupo))
+            print("*****************************************************{}".format("*"*len(vargrupo)))
+            
+            i = i-1
+            vargrupo = grupo[0+i]
+
+            if i == 0:
+                print("As certidões fora emitidas com sucesso e salvas no diretório do programa.")
+                break 
+           
                 
 menu()
+       
+
+        
+
