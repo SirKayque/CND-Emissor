@@ -36,8 +36,9 @@ def menu(): #Funcao para carregar o menu e suas opcoes
     print("+____________________|___________________|__________________+")
 
 
-    ##Se a opcao selecionada for C
+    ##Se opcao for igual a C
     inp = (input("\n>>>Insira uma opção: ").upper())
+    pendencia = []
 
     if inp == "C":   
         print("\nInsira a quantidade de certidões que você deseja solicitar.")
@@ -51,49 +52,48 @@ def menu(): #Funcao para carregar o menu e suas opcoes
         i = len(lst)
         insc = lst[0]
         print("\n>>>As certidões estão sendo emitir, assim que finalizadas iremos notificar")
-        pendencia = []
 
         while i > 0:
             chrome_options = Options()
-            chrome_options.add_argument("--headless")
+            #chrome_options.add_argument("--headless")
             driver = webdriver.Chrome(options=chrome_options)
             driver.get('https://www.santoandre.sp.gov.br/portalservico/Certidoes/PosNegTribMobiliario.aspx')
 
-#Selenium submete a inscricao na box xpath CMC
+            #Selenium submete a inscricao na box xpath CMC
             xpathbox = '//*[@id="ContentPlaceHolder1_txtCMC"]'
             box = driver.find_element_by_xpath(xpathbox)
             box.send_keys(insc)
             box.submit()
 
-#Selenium submete um clique para prosseguir com a emissao
+            #Selenium submete um clique para prosseguir com a emissao
             xpathbtn = '//*[@id="ContentPlaceHolder1_btnVisualizar"]'
             btn = driver.find_element_by_xpath(xpathbtn)
             btn.click()
-
-#Requests obtem o link do Selenium e utiliza-o para baixar o arquivo PDF
             
             time.sleep(40) #Tempo médio para a aquisição do PDF ser liberada
-
-            pdf_url = driver.find_element_by_tag_name('iframe').get_attribute("src")
-            print(pdf_url) #Link aonde o PDF esta hospedado
-            url = pdf_url
-            
-            if url == "https://www.santoandre.sp.gov.br/PortalServico/Seguranca/frmLogin.aspx":
+    
+            if driver.current_url == 'https://www.santoandre.sp.gov.br/PortalServico/Seguranca/frmLogin.aspx':
                 print("A certidão {} está com pendência.".format(insc))
-                pendencia.append(insc)
-                
+                lstpend = pendencia.append(insc)
+            
+            else:
+                   #Requests obtem o link do Selenium e utiliza-o para baixar o arquivo PDF
+                    pdf_url = (driver.find_element_by_tag_name('iframe').get_attribute("src"))
+                    print(pdf_url) #Link aonde o PDF esta hospedado
+                    url = pdf_url               
+                    ext = '.pdf' #Renomea-se o arquivo para .pdf
+                    r = requests.get(url)
+                    with open(str(insc)+ext, 'wb') as f:
+                     f.write(r.content)
+                    print("\nA certidão sobre a inscrição {} foi salva com sucesso !".format(insc))
+                    print("*****************************************************{}".format("*"*len(insc)))
 
-            if url == "https://www.santoandre.sp.gov.br/PortalServico/Seguranca/frmLogin.aspx":
-                ext = '.pdf' #Renomea-se o arquivo para .pdf
-                r = requests.get(url)
-                with open(str(insc)+ext, 'wb') as f:
-                 f.write(r.content)
-             
-#Loop para prosseguir com as emissoes que o usuario solicitou
-            print("\nA certidão sobre a inscrição {} foi salva com sucesso !".format(insc))
-            print("*****************************************************{}".format("*"*len(insc)))
-        i = i-1
-        insc = lst[0+i]
+            i = i-1
+            insc = lst[0+i]
+        
+        if i == 0:
+            print("As certidões foram emitidas com sucesso.")
+            print("A quantidade de inscrições com pendências é de: {}.\nInscrições com pendência: {}".format(len(lstpend),lst-pend)) 
 
     elif inp == "I":
         cls()
@@ -221,7 +221,8 @@ def menu(): #Funcao para carregar o menu e suas opcoes
            
                 
 menu()
-       
+
+##190852 245448  235832
 
         
 
