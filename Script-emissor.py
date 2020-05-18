@@ -70,16 +70,18 @@ def menu(): #Funcao para carregar o menu e suas opcoes
             btn = driver.find_element_by_xpath(xpathbtn)
             btn.click()
             
-            time.sleep(40) #Tempo médio para a aquisição do PDF ser liberada
+            time.sleep(45) #Tempo médio para a aquisição do PDF ser liberada
     
             if driver.current_url == 'https://www.santoandre.sp.gov.br/PortalServico/Seguranca/frmLogin.aspx':
                 print("A certidão {} está com pendência.".format(insc))
-                lstpend = pendencia.append(insc)
+                for y in range(0,num):
+                    pendencia.append(insc)
+                    print(pendencia)
+ 
             
             else:
                    #Requests obtem o link do Selenium e utiliza-o para baixar o arquivo PDF
                     pdf_url = (driver.find_element_by_tag_name('iframe').get_attribute("src"))
-                    print(pdf_url) #Link aonde o PDF esta hospedado
                     url = pdf_url               
                     ext = '.pdf' #Renomea-se o arquivo para .pdf
                     r = requests.get(url)
@@ -87,13 +89,15 @@ def menu(): #Funcao para carregar o menu e suas opcoes
                      f.write(r.content)
                     print("\nA certidão sobre a inscrição {} foi salva com sucesso !".format(insc))
                     print("*****************************************************{}".format("*"*len(insc)))
+                    
 
             i = i-1
             insc = lst[0+i]
         
         if i == 0:
             print("As certidões foram emitidas com sucesso.")
-            print("A quantidade de inscrições com pendências é de: {}.\nInscrições com pendência: {}".format(len(lstpend),lst-pend)) 
+            if len(pendencia) > 0:
+                print("A quantidade de inscrições com pendências é de: {}.\nInscrições com pendência: {}".format(len(pendencia),pendencia)) 
 
     elif inp == "I":
         cls()
@@ -221,8 +225,4 @@ def menu(): #Funcao para carregar o menu e suas opcoes
            
                 
 menu()
-
-##190852 245448  235832
-
-        
-
+       
