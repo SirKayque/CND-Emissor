@@ -26,7 +26,6 @@ def menu(): #Funcao para carregar o menu e suas opcoes
     print("+___________________________________________________________+")
     print("*************************************************************")
     print("*************************************************************")
-
     print(" ___________________________________________________________")
     print("+  Para utilizar o programa, favor escolher uma das opções  +")
     print("|___________________________________________________________|")
@@ -34,7 +33,6 @@ def menu(): #Funcao para carregar o menu e suas opcoes
     print("|  Emitir pela lista |  Emitir pelo CMC  |   Informações    |")
     print("|      Insira: L     |     Insira: C     |    Insira: I     |")
     print("+____________________|___________________|__________________+")
-
 
     ##Se opcao for igual a C
     inp = (input("\n>>>Insira uma opção: ").upper())
@@ -51,11 +49,11 @@ def menu(): #Funcao para carregar o menu e suas opcoes
 
         i = len(lst)
         insc = lst[0]
-        print("\n>>>As certidões estão sendo emitir, assim que finalizadas iremos notificar")
+        print("\n>>>As certidões estão sendo emitidas, assim que finalizadas iremos notificar...")
 
         while i > 0:
             chrome_options = Options()
-            #chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--headless")
             driver = webdriver.Chrome(options=chrome_options)
             driver.get('https://www.santoandre.sp.gov.br/portalservico/Certidoes/PosNegTribMobiliario.aspx')
 
@@ -73,12 +71,9 @@ def menu(): #Funcao para carregar o menu e suas opcoes
             time.sleep(45) #Tempo médio para a aquisição do PDF ser liberada
     
             if driver.current_url == 'https://www.santoandre.sp.gov.br/PortalServico/Seguranca/frmLogin.aspx':
-                print("A certidão {} está com pendência.".format(insc))
-                for y in range(0,num):
-                    pendencia.append(insc)
-                    print(pendencia)
- 
-            
+                print("\nA certidão {} está com pendência.".format(insc))
+                print("*******************************{}".format("*"*len(insc)))
+                pendencia.append(insc)    
             else:
                    #Requests obtem o link do Selenium e utiliza-o para baixar o arquivo PDF
                     pdf_url = (driver.find_element_by_tag_name('iframe').get_attribute("src"))
@@ -88,8 +83,7 @@ def menu(): #Funcao para carregar o menu e suas opcoes
                     with open(str(insc)+ext, 'wb') as f:
                      f.write(r.content)
                     print("\nA certidão sobre a inscrição {} foi salva com sucesso !".format(insc))
-                    print("*****************************************************{}".format("*"*len(insc)))
-                    
+                    print("*****************************************************{}".format("*"*len(insc)))                  
 
             i = i-1
             insc = lst[0+i]
@@ -97,7 +91,7 @@ def menu(): #Funcao para carregar o menu e suas opcoes
         if i == 0:
             print("As certidões foram emitidas com sucesso.")
             if len(pendencia) > 0:
-                print("A quantidade de inscrições com pendências é de: {}.\nInscrições com pendência: {}".format(len(pendencia),pendencia)) 
+                print("A quantidade de inscrições com pendências é de: {}.\nInscrições com pendência: {}".format(len(pendencia),pendencia))
 
     elif inp == "I":
         cls()
@@ -130,7 +124,6 @@ def menu(): #Funcao para carregar o menu e suas opcoes
         print("|       Página inicial          |        Sair do programa        |")
         print("|         Inserir: H            |            Inserir: S          |")
         print("+________________________________________________________________+")
-
 
         opc = (str(input("\n>>>Insira uma opção: ").upper()))
         if opc == "H":
@@ -201,7 +194,6 @@ def menu(): #Funcao para carregar o menu e suas opcoes
 #Requests obtem o link do Selenium e utiliza-o para baixar o arquivo PDF
             
             time.sleep(45) #Tempo médio para a aquisição do PDF ser liberada
-
           
             pdf_url = driver.find_element_by_tag_name('iframe').get_attribute("src")
             print(pdf_url) #Link aonde o PDF esta hospedado
@@ -221,8 +213,5 @@ def menu(): #Funcao para carregar o menu e suas opcoes
 
             if i == 0:
                 print("As certidões fora emitidas com sucesso e salvas no diretório do programa.")
-                break 
-           
-                
+                              
 menu()
-       
