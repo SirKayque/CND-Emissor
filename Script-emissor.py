@@ -34,16 +34,23 @@ def menu(): #Funcao para carregar o menu e suas opcoes
     print("|      Insira: L     |     Insira: C     |    Insira: I     |")
     print("+____________________|___________________|__________________+")
 
-    ##Se opcao for igual a C
-    inp = (input("\n>>>Insira uma opção: ").upper())
+
+    inp = (input("\n>>>Insira uma opção: ").upper().strip())
     pendencia = []
 
-    if inp == "C":   
+    if not inp in ["L","l","C","c","I","i"]:
+        print("\nFavor inserir um valor válido.")
+        time.sleep(3)
+        menu()
+        inp()
+        
+    
+    elif inp == "C":   
         print("\nInsira a quantidade de certidões que você deseja solicitar.")
         lst = []
-        num = int(input("\n>>>Quantidade: "))
+        num = int(input("\n>>>Quantidade: ")).strip()
         for x in range(0,num):
-            cmc = str(input("\n>>>Por gentileza, inserir o CMC da empresa: "))
+            cmc = str(input("\n>>>Por gentileza, inserir o CMC da empresa: ")).strip()
             print("*******************************************")
             lst.append(cmc)
 
