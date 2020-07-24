@@ -8,31 +8,31 @@ def cls():
     os.system('cls')
 
 def menu(): #Funcao para carregar o menu e suas opcoes
-    print(" ___________________________________________________________")
-    print("+   ____ ____     _____ __  __ ___ ____ ____   ___  ____    +")
-    print("|  / ___/ ___|   | ____|  \/  |_ _/ ___/ ___| / _ \|  _ \   |")
-    print("| | |   \___ \   |  _| | |\/| || |\___ \___ \| | | | |_) |  |")
-    print("| | |___ ___) |  | |___| |  | || | ___) ___) | |_| |  _ <   |")
-    print("|  \____|____/   |_____|_|  |_|___|____|____/ \___/|_| \_\  |")
-    print("|___________________________________________________________|")
-    print("|***********************************************************|")
-    print("| Esse programa tem como finalidade emitir as certidões     |")
-    print("|          municipais da Prefeitura de Santo André.         |")
-    print("|___________________________________________________________|")
-    print("|***********************************************************|")
-    print("|               Criado por: Kayque N Vieira                 |")
-    print("|                           V.1.0                           |")
-    print("|              https://controlsigma.com.br/                 |")
-    print("+___________________________________________________________+")
-    print("*************************************************************")
-    print("*************************************************************")
-    print(" ___________________________________________________________")
-    print("+  Para utilizar o programa, favor escolher uma das opções  +")
-    print("|___________________________________________________________|")
-    print("|                    |                   |                  |")
-    print("|  Emitir pela lista |  Emitir pelo CMC  |   Informações    |")
-    print("|      Insira: L     |     Insira: C     |    Insira: I     |")
-    print("+____________________|___________________|__________________+")
+    print(""" ___________________________________________________________
+             +   ____ ____     _____ __  __ ___ ____ ____   ___  ____    +
+             |  / ___/ ___|   | ____|  \/  |_ _/ ___/ ___| / _ \|  _ \   |
+             | | |   \___ \   |  _| | |\/| || |\___ \___ \| | | | |_) |  |
+             | | |___ ___) |  | |___| |  | || | ___) ___) | |_| |  _ <   |
+             |  \____|____/   |_____|_|  |_|___|____|____/ \___/|_| \_\  |
+             |___________________________________________________________|
+             |***********************************************************|
+             | Esse programa tem como finalidade emitir as certidões     |
+             |          municipais da Prefeitura de Santo André.         |
+             |___________________________________________________________|
+             |***********************************************************|
+             |               Criado por: Kayque N Vieira                 |
+             |                           V.1.0                           |
+             |              https://controlsigma.com.br/                 |
+             +___________________________________________________________+
+             *************************************************************
+             *************************************************************
+              ___________________________________________________________
+             +  Para utilizar o programa, favor escolher uma das opções  +
+             |___________________________________________________________|
+             |                    |                   |                  |
+             |  Emitir pela lista |  Emitir pelo CMC  |   Informações    |
+             |      Insira: L     |     Insira: C     |    Insira: I     |
+             +____________________|___________________|__________________+ """)
 
 
     inp = (input("\n>>>Insira uma opção: ").upper().strip())
@@ -102,35 +102,36 @@ def menu(): #Funcao para carregar o menu e suas opcoes
 
     elif inp == "I":
         cls()
-        print(" ________________________________________________________________")
-        print("+      ____ ____     _____ __  __ ___ ____ ____   ___  ____      +")
-        print("|     / ___/ ___|   | ____|  \/  |_ _/ ___/ ___| / _ \|  _ \     |")
-        print("|    | |   \___ \   |  _| | |\/| || |\___ \___ \| | | | |_) |    |")
-        print("|    | |___ ___) |  | |___| |  | || | ___) ___) | |_| |  _ <     |")
-        print("|     \____|____/   |_____|_|  |_|___|____|____/ \___/|_| \_\    |")
-        print("|________________________________________________________________|")
-        print("|****************************************************************|")
-        print("| Os arquivos emitidos por esse programa são obtidos diretamente |")
-        print("| pelo sistema oficial de emissão de certidões da PMSA, ou seja, |")
-        print("| qualquer erro visualizado pelo programa deve ser analisado em  |")
-        print("| grande parte por funcão do respectivo site.Alguns erros comuns |")
-        print("| que podem por algum motivo ocorrer são:                        |")
-        print("|                                                                |")
-        print("| I.  Conexão com a internet interrompiada;                      |")
-        print("| II. Site da Prefeitura de Santo André está indisponível;       |")
-        print("| III.Inicialização do programa com algum erro.                  |")
-        print("|                                                                |")
-        print("| Para todas as situações acima, o problema pode ser facilmente  |")
-        print("| resolvido, presumo que o usuário tenha um conhecimento básico. |")
-        print("| Para outras dúvidas relacionadas ao programa em geral basta    |")
-        print("| enviar um e-mail para o seguinte contato:                      |")
-        print("|                                                                |")
-        print("|                 >>>Kayquenv@Outlook.com<<<                     |")
-        print("|________________________________________________________________|")
-        print("|****************************************************************|")
-        print("|       Página inicial          |        Sair do programa        |")
-        print("|         Inserir: H            |            Inserir: S          |")
-        print("+________________________________________________________________+")
+        print("""
+         ________________________________________________________________
+        +      ____ ____     _____ __  __ ___ ____ ____   ___  ____      +
+        |     / ___/ ___|   | ____|  \/  |_ _/ ___/ ___| / _ \|  _ \     |
+        |    | |   \___ \   |  _| | |\/| || |\___ \___ \| | | | |_) |    |
+        |    | |___ ___) |  | |___| |  | || | ___) ___) | |_| |  _ <     |
+        |     \____|____/   |_____|_|  |_|___|____|____/ \___/|_| \_\    |
+        |________________________________________________________________|
+        |****************************************************************|
+        | Os arquivos emitidos por esse programa são obtidos diretamente |
+        | pelo sistema oficial de emissão de certidões da PMSA, ou seja, |
+        | qualquer erro visualizado pelo programa deve ser analisado em  |
+        | grande parte por funcão do respectivo site.Alguns erros comuns |
+        | que podem por algum motivo ocorrer são:                        |
+        |                                                                |
+        | I.  Conexão com a internet interrompiada;                      |
+        | II. Site da Prefeitura de Santo André está indisponível;       |
+        | III.Inicialização do programa com algum erro.                  |
+        |                                                                |
+        | Para todas as situações acima, o problema pode ser facilmente  |
+        | resolvido, presumo que o usuário tenha um conhecimento básico. |
+        | Para outras dúvidas relacionadas ao programa em geral basta    |
+        | enviar um e-mail para o seguinte contato:                      |
+        |                                                                |
+        |                 >>>Kayquenv@Outlook.com<<<                     |
+        |________________________________________________________________|
+        |****************************************************************|
+        |       Página inicial          |        Sair do programa        |
+        |         Inserir: H            |            Inserir: S          |
+        +________________________________________________________________+ """)
 
         opc = (str(input("\n>>>Insira uma opção: ").upper()))
         if opc == "H":
